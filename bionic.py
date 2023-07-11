@@ -1,8 +1,11 @@
 import dash
 from dash import dcc
+import dash_bootstrap_components as dbc
+
 from dash.dependencies import Input, Output
 from dash import html
 
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP] )
 app = dash.Dash(__name__)
 
 app.layout = html.Div(
@@ -30,13 +33,9 @@ def update_boldified_text(input_text):
         words = input_text.split()
         boldified_words = []
         for word in words:
-            if len(word) >= 5:
-                boldified_words.append(html.Span([html.B(word[:3]), word[3:]," "]))
-            else:
-                if len(word) <= 5 and len(word)>3:
-                    boldified_words.append(html.Span([html.B(word[:2]), word[2:], " "]))
-                else:
-                    boldified_words.append(html.Span([html.B(word[:0]), word[0:]," "]))
+                        
+                boldified_words.append(html.Span([html.B(word[:int(0.3*len(word))]), word[int(0.3*len(word)):]," "]))
+            
         return html.Div(boldified_words)
         
 if __name__ == "__main__":
